@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <meta name="theme-color" content="#000000">
+  <title>tv2u</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <!-- Only used when the app runs in a normal browser; on Android the video is drawn by the native player behind this page. -->
+  <video id="webVideo" playsinline autoplay hidden></video>
+
+  <div class="app" id="app">
+    <div class="tapzone" id="tapzone"></div>
+    <div class="zap" id="zap" hidden></div>
+    <div class="spinner" id="spinner" hidden></div>
+    <div class="msg" id="msg" hidden><span id="msgText"></span><button class="msg-close" id="msgClose" aria-label="Close" hidden>&#x2715;</button></div>
+
+    <!-- Appears by itself when a channel has several audio tracks (bottom right, away from the lists). -->
+    <div class="rec-badge" id="recBadge" hidden>● REC 00:00</div>
+
+    <div class="audio-wiz" id="audioWiz" hidden>
+      <div class="aw-title" id="awTitle">Audio language</div>
+      <ul class="aw-list" id="awList"></ul>
+    </div>
+
+    <div class="overlay" id="overlay" hidden>
+      <div class="welcome" id="welcome">
+        <img class="welcome-logo" src="./logo.png" alt="tv2u">
+        <button class="welcome-add" id="btnWelcomeAdd">Add playlist</button>
+        <a class="welcome-tg" href="https://t.me/tv2uplayer" target="_blank" rel="noopener">
+          <svg viewBox="0 0 240 240" aria-hidden="true"><circle cx="120" cy="120" r="120" fill="#2aabee"/><path fill="#fff" d="M54 118l124-48c6-2 11 1 9 9l-21 100c-2 7-6 9-12 5l-34-25-16 16c-2 2-3 3-7 3l3-35 64-58c3-3-1-4-4-2l-79 50-34-11c-7-2-7-7 2-11z"/></svg>
+          <span>t.me/tv2uplayer</span>
+        </a>
+      </div>
+      <header class="bar">
+        <div class="title">tv2u</div>
+        <div class="bar-items" id="barItems">
+          <button class="btn" id="btnRecord">Record</button>
+          <button class="btn" id="btnOpen">Playlist</button>
+          <button class="btn" id="btnRefresh" hidden>Reload</button>
+          <button class="btn" id="btnInfo">Info</button>
+        </div>
+      </header>
+
+      <div class="panes" id="panes">
+        <nav class="pane groups" aria-label="Groups">
+          <ul class="list" id="groupList"></ul>
+        </nav>
+        <section class="pane channels" aria-label="Channels">
+          <div class="listwrap" id="listWrap">
+            <ul class="list" id="list"></ul>
+            <div class="empty" id="emptyList" hidden>
+              <p id="emptyText">No channels.</p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <dialog id="dlg">
+    <form method="dialog" class="dlg-head">
+      <span class="dlg-spacer" aria-hidden="true"></span>
+      <h2>Load playlist</h2>
+      <button class="icon-btn" aria-label="Close">&#x2715;</button>
+    </form>
+
+    <div class="status" id="dlgStatus" role="status"></div>
+
+    <div class="dlg-body">
+      <div class="field" id="inboxBox" hidden>
+        <span>Easiest on a TV: type the link on your phone</span>
+        <button class="btn" id="btnInbox">Send from phone</button>
+        <div class="inbox-info" id="inboxInfo" hidden></div>
+      </div>
+
+      <div class="field" id="fileBox">
+        <span>Or pick a file from the phone</span>
+        <button class="btn" id="btnFile">Choose file</button>
+        <input id="fileInput" type="file" hidden>
+      </div>
+
+      <label class="field">
+        <span>Or type a playlist / stream URL (http or https)</span>
+        <input id="urlInput" type="url" inputmode="url" placeholder="https://example.com/playlist.m3u" autocomplete="off">
+      </label>
+      <div class="inline center">
+        <button class="btn primary" id="btnLoadUrl">Load playlist</button>
+        <button class="btn" id="btnPlayUrl">Play as stream</button>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="plDlg">
+    <form method="dialog" class="dlg-head">
+      <span class="dlg-spacer" aria-hidden="true"></span>
+      <h2>My playlists</h2>
+      <button class="icon-btn" aria-label="Close">&#x2715;</button>
+    </form>
+    <div class="status" id="plStatus" role="status">Up to 3 playlists are kept. Adding a new one replaces the oldest.</div>
+    <div class="dlg-body">
+      <ul class="pl-list" id="plList"></ul>
+      <div class="inline center">
+        <button class="btn primary" id="btnPlAdd">+ Add playlist</button>
+      </div>
+    </div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+  <script src="./script.js"></script>
+</body>
+</html>
