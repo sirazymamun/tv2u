@@ -1,0 +1,22 @@
+{
+  "name": "tv2u",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Full-screen IPTV player (M3U / M3U_PLUS / HLS / MPEG-TS) packaged as an Android + Android TV app with Capacitor and a native ExoPlayer",
+  "scripts": {
+    "test": "node test/parser.test.js && node test/native-http.test.js",
+    "android:add": "cap add android",
+    "sync": "cap sync android",
+    "open": "cap open android",
+    "apk": "cap sync android && cd android && ./gradlew assembleDebug",
+    "capacitor:sync:after": "node native/apply.mjs"
+  },
+  "dependencies": {
+    "@capacitor/android": "^7.0.0",
+    "@capacitor/app": "^7.0.0",
+    "@capacitor/core": "^7.0.0"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^7.0.0"
+  }
+}

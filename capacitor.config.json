@@ -1,0 +1,12 @@
+{
+  "appId": "com.tv2u.app",
+  "appName": "tv2u",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https",
+    "cleartext": true
+  },
+  "android": {
+    "allowMixedContent": true
+  }
+}
